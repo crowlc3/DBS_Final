@@ -1,1 +1,6 @@
 https://data.ny.gov/api/views/3cij-nwhw/rows.csv?accessType=DOWNLOAD&sorting=true
+
+
+leukuemia - blob:https://gis.cdc.gov/a73c186e-18c4-4c46-aff8-b7ca0fa63cf4
+lung - blob:https://gis.cdc.gov/0b09285d-7abc-4598-8dde-2ce9b424f225
+skin - blob:https://gis.cdc.gov/ded562bf-f804-4429-9859-246f8a061c13

@@ -1,4 +1,4 @@
-https://data.ny.gov/api/views/3cij-nwhw/rows.csv?accessType=DOWNLOAD&sorting=true
+https://data.ny.gov/api/views/4ry5-tfin/rows.csv?accessType=DOWNLOAD&sorting=true
 https://chrispence.me/schoolwork/leukemias.csv
 https://chrispence.me/schoolwork/lung.csv
 https://chrispence.me/schoolwork/melanomas.csv

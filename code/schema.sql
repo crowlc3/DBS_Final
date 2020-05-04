@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS test;
+
+CREATE TABLE test(
+	name VARCHAR(255),
+	id INT
+);

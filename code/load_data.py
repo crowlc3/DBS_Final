@@ -1,6 +1,6 @@
 import psycopg2
 
-connection_string = "host='localhost' dbname='final_project' user='final_project_user' password='whydidgaryleaveus'"
+connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
 
 # TODO add your code here (or in other files, at your discretion) to load the data
 

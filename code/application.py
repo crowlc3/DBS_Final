@@ -38,3 +38,4 @@ if __name__ == "__main__":
 
 #*****Cancers*****
 # Select the data for a specific county
+# select data for apsecific type

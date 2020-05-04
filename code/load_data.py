@@ -1,15 +1,10 @@
 import psycopg2
 import csv
-import cx_Oracle
 import os
 
+db_port = os.getenv('db_port') or '5432';
 
-
-
-connectString = os.getenv('db_connect')
-con = cx_Oracle.connect(connectString)
-
-connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password'"
+connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password' port=" + db_port;
 
 # TODO add your code here (or in other files, at your discretion) to load the data
 conn = psycopg2.connect(connection_string)

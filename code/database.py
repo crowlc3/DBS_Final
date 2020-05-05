@@ -21,10 +21,9 @@ class DatabaseController:
 	# return self.__runQuery(query, ())
 
 	def find_specific_cancer(self,cancer_type):
-		query = "SELECT * FROM cancers WHERE CANCER LIKE '" + cancer_type + "';"
-		with self.conn.cursor() as cursor:
-			cursor.execute(query)
-			return cursor.fetchall();
+		query = "SELECT * FROM cancers WHERE CANCER LIKE %s;"
+		return self.__runQuery(query,(cancer_type))
+
 
 
 # Returns the results from a query

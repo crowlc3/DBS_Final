@@ -1,9 +1,20 @@
 import os
+from texttable import Texttable
 from database import DatabaseController
 
+def ttDemo(tt):
+	tt.set_cols_align(["l", "c", "r"])
+	# First array column is a header
+	tt.add_rows([["Left", "Number", "Right"], ["Value", "10", "More Value"]])
+	print(tt.draw())
+
 def main():
-	# initialize the database class
+	# Initialize Imports
 	db = DatabaseController()
+	tt = Texttable()
+	tt.set_deco(Texttable.HEADER)
+
+	ttDemo(tt)
 
 	print("Welcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")

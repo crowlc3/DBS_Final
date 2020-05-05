@@ -91,7 +91,7 @@ def toxin_cancer_correlation(db,):
 	for row in data:
 		cancer_rate.append(row[0])
 		toxin_level.append(row[1])
-	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(toxin_level, cancer_rate)[0][1], 4)))
+	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)))
 
 def main():
 	# Initialize Imports

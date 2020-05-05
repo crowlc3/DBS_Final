@@ -31,6 +31,7 @@
 # select data for a specific type
 
 import os
+import numpy
 from texttable import Texttable
 from database import DatabaseController
 
@@ -39,12 +40,15 @@ tt = Texttable(0)
 # Print database output in a nice table
 def printTextTable(alignment, header, data):
 	global tt
+	tt.set_max_width(0)
 	tt.set_deco(Texttable.HEADER)
 	tt.set_cols_align(alignment)
 	tt.header(header)
 	tt.add_rows(data, header=False)
+	print()
 	print(tt.draw())
 	tt.reset()
+
 
 def find_specific_cancer(db,type):
 	printTextTable(["l","l","l","l","l"],
@@ -57,11 +61,12 @@ def high_low_comparison(db,type):
 					db.high_low_comparison(type))
 
 
+
 def pick_cancer():
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
 	for i in range(len(cancers)):
 		print(i+1,"-",cancers[i])
-	numby = input("Enter the number for which cancer you would like to get information on: ")
+	numby = input("Enter a cancer type: ")
 	num = int(numby)
 	return cancers[num-1]
 
@@ -69,9 +74,37 @@ def pick_toxin():
 	toxins = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
 	for i in range(len(toxins)):
 		print(i+1,"-",toxins[i])
-	numby = input("Enter the number for which toxin you would like to get information on: ")
+	numby = input("Enter a toxin type: ")
 	num = int(numby)
 	return toxins[num-1]
+
+
+def find_specific_cancer(db,type):
+	printTextTable(["l","l","l","l","l"],
+					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
+					db.find_specific_cancer(type))
+
+def high_low_comparison(db,type):
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
+					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.high_low_comparison(type))
+
+def toxin_cancer_correlation(db,):
+	cancer_type = pick_cancer()
+	toxin_type = pick_toxin()
+	data = db.select_toxin_cancer_correlation(cancer_type, toxin_type)
+
+	printTextTable(["c", "c"],
+					["Cancer Rate", "Toxin Level"],
+					data)
+
+	# Compute the correlation
+	toxin_level = []
+	cancer_rate = []
+	for row in data:
+		cancer_rate.append(row[0])
+		toxin_level.append(row[1])
+	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)))
 
 def main():
 	# Initialize Imports
@@ -85,7 +118,9 @@ def main():
 
 
 	#array of options for queries
-	arr = ["1: find specific cancer","2: highlow"]
+	arr = ["1: find specific cancer",
+			"2: highlow",
+			"3: Correlation between toxin level and cancer rate over all counties."]
 
 
 	query = 's'
@@ -114,9 +149,11 @@ def main():
 		if query_ == 1:
 			type = pick_cancer()
 			find_specific_cancer(db,type)
-		if query_ == 2:
+		elif query_ == 2:
 			type = pick_cancer()
 			high_low_comparison(db,type)
+		elif query_ == 3:
+			toxin_cancer_correlation(db)
 
 
 if __name__ == "__main__":

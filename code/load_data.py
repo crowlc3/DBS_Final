@@ -3,10 +3,8 @@ import csv
 import os
 
 db_port = os.getenv('db_port') or '5432';
-
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password' port=" + db_port;
 
-# TODO add your code here (or in other files, at your discretion) to load the data
 conn = psycopg2.connect(connection_string)
 
 # Build the schema based on the schema file

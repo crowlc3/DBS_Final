@@ -1,7 +1,10 @@
 import os
+from database import DatabaseController
 
 def main():
 	print("Welcome to our application!");
+
+	
 
 
 if __name__ == "__main__":

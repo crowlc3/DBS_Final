@@ -37,6 +37,9 @@ from database import DatabaseController
 tt = Texttable()
 
 # Print database output in a nice table
+# Alignment is an array of l,c,r to specify text justification in each column
+# Header is an array of column headers
+# data is the database output you would like to print
 def printTextTable(alignment, header, data):
 	global tt
 	tt.set_deco(Texttable.HEADER)

@@ -23,16 +23,16 @@ class DatabaseController:
 		return self.__runQuery(query,[cancer_type])
 
 
-	def select_toxin_cancer_correlation(self):
+	def select_toxin_cancer_correlation(self, cancer_type, toxin_type):
 		sql = """
-		SELECT ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, toxins.co2
+		SELECT ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, toxins.%s
 		FROM cancers,toxins
 		WHERE cancers.county = toxins.county
-		AND toxins.co2 != 0
-		AND cancers.cancer = 'Leukemias'
-		ORDER BY rate ASC, toxins.co2 ASC
+		AND toxins.%s != 0
+		AND cancers.cancer = %s
+		ORDER BY rate ASC, toxins.%s ASC
 		"""
-		return self.__runQuery(sql, [])
+		return self.__runQuery(sql, [toxin_type, toxin_type, cancer_type, toxin_type])
 
 	def high_low_comparison(self,cancer_type):
 		query = """SELECT toxins.county,

@@ -34,8 +34,6 @@ import os
 from texttable import Texttable
 from database import DatabaseController
 
-db = DatabaseController()
-
 def ttDemo(tt):
 	tt.set_cols_align(["l", "c", "r"])
 	# First array column is a header
@@ -49,6 +47,7 @@ def find_specific_cancer():
 
 def main():
 	# Initialize Imports
+	db = DatabaseController()
 	tt = Texttable()
 	tt.set_deco(Texttable.HEADER)
 
@@ -57,8 +56,6 @@ def main():
 	print("Welcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
 	print("Please pick from one of these options to query our database:")
-	print()
-	print()
 
 
 	#array of options for queries

@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 class DatabaseController:
 
@@ -12,8 +13,8 @@ class DatabaseController:
 		self.conn = psycopg2.connect(connection_string)
 
 # Returns the results from a query
-def runQuery(query, params):
-	with conn.cursor() as cursor:
+# def runQuery(query, params):
+# 	with conn.cursor() as cursor:
 
 
 

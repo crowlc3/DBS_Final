@@ -1,13 +1,10 @@
 import os
 from database import DatabaseController
 
-def test():
-	return
+def main():
+	# initialize the database class
+	db = DatabaseController()
 
-	
-
-
-if __name__ == "__main__":
 	print("Welcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
 	print("Please pick from one of these options to query our database:")
@@ -17,6 +14,10 @@ if __name__ == "__main__":
 	query = input("Enter the number of the query you would like to run: ")
 	query_ = int(query)
 	print("You selected",arr[query_-1])
+
+
+if __name__ == "__main__":
+	main()
 
 #-------------Heres some ideas for queries-------------------#
 

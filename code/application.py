@@ -19,12 +19,17 @@ def main():
 	print("Welcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
 	print("Please pick from one of these options to query our database:")
-	arr = ["1: print all of the ____" , "2: print all of the _______" , "3: do this _____"]
+	arr = ["1: print all of the ____" , "2: print all of the _______" , "3: do this _____", "4: find specific type of cancer"]
 	for item in arr:
 		print(item)
 	query = input("Enter the number of the query you would like to run: ")
 	query_ = int(query)
 	print("You selected",arr[query_-1])
+	if query_ == 4:
+		type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+		db.find_specific_cancer(type)
+
+	#db.functionname
 
 
 if __name__ == "__main__":

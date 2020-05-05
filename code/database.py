@@ -12,6 +12,14 @@ class DatabaseController:
 							port=" + db_port;
 		self.conn = psycopg2.connect(connection_string)
 
+	# Private method to abstract running query
+	def __runQuery(self, query, params):
+		with self.conn.cursor() as cursor:
+			cursor.execute(query, params)
+			return cursor.fetchall()
+
+	# return self.__runQuery(query, ())
+
 	def find_specific_cancer(self,cancer_type):
 		query = "SELECT * FROM cancers WHERE CANCER LIKE ' + cancer_type + ';"
 		with self.conn.cursor() as cursor:

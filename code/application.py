@@ -60,28 +60,41 @@ def main():
 	db = DatabaseController()
 
 	# Begin text interaction with user
-	print("Welcome to our application")
+	print("\nWelcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
-	print("Please pick from one of these options to query our database:")
+	print()
+	print("Enter q to quit\n")
 
 
 	#array of options for queries
 	arr = ["1: find specific cancer"]
 
 
-	for item in arr:
-		print(item)
+	query = 's'
 
 
-	query = input("Enter the number of the query you would like to run: ")
-	query_ = int(query)
+	while(query != 'q'):
+		print("\nPlease pick from one of these options to query our database:\n")
+
+		for item in arr:
+			print(item)
+			###Print options
+
+		query = input("Enter the number of the query you would like to run: ")
+
+		if(query == 'q'):
+			print("Bye Bye\n")
+			break
+			###End program
+
+		query_ = int(query)
 
 
-	print("You selected",arr[query_-1])
+		print("You selected",arr[query_-1])
 
-	#run function per user input
-	if query_ == 1:
-		find_specific_cancer(db,tt)
+		#run function per user input
+		if query_ == 1:
+			find_specific_cancer(db,tt)
 
 
 if __name__ == "__main__":

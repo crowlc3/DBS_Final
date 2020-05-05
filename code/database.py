@@ -31,8 +31,8 @@ class DatabaseController:
 		AND toxins.%s != 0
 		AND cancers.cancer = %s
 		ORDER BY rate ASC, toxins.%s ASC
-		"""
-		return self.__runQuery(sql, [toxin_type, toxin_type, cancer_type, toxin_type])
+		""" % (toxin_type, toxin_type, "'"+cancer_type+"'", toxin_type)
+		return self.__runQuery(sql, [])
 
 	def high_low_comparison(self,cancer_type):
 		query = """SELECT toxins.county,

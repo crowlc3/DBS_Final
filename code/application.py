@@ -34,7 +34,7 @@ import os
 from texttable import Texttable
 from database import DatabaseController
 
-tt = Texttable()
+tt = Texttable(0)
 
 # Print database output in a nice table
 # Alignment is an array of l,c,r to specify text justification in each column
@@ -55,6 +55,12 @@ def find_specific_cancer(db,tt):
 					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
 					db.find_specific_cancer(type))
 
+def high_low_comparison(db,tt):
+	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
+					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.high_low_comparison(type))
+
 def main():
 	# Initialize Imports
 	db = DatabaseController()
@@ -67,7 +73,7 @@ def main():
 
 
 	#array of options for queries
-	arr = ["1: find specific cancer"]
+	arr = ["1: find specific cancer","2: highlow"]
 
 
 	query = 's'
@@ -95,6 +101,8 @@ def main():
 		#run function per user input
 		if query_ == 1:
 			find_specific_cancer(db,tt)
+		if query_ == 2:
+			high_low_comparison(db,tt)
 
 
 if __name__ == "__main__":

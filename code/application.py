@@ -37,9 +37,6 @@ from database import DatabaseController
 tt = Texttable(0)
 
 # Print database output in a nice table
-# Alignment is an array of l,c,r to specify text justification in each column
-# Header is an array of column headers
-# data is the database output you would like to print
 def printTextTable(alignment, header, data):
 	global tt
 	tt.set_deco(Texttable.HEADER)
@@ -49,14 +46,13 @@ def printTextTable(alignment, header, data):
 	print(tt.draw())
 	tt.reset()
 
-def find_specific_cancer(db):
-	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+
+def find_specific_cancer(db,type):
 	printTextTable(["l","l","l","l","l"],
 					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
 					db.find_specific_cancer(type))
 
-def high_low_comparison(db):
-	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+def high_low_comparison(db,type):
 	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
 					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
@@ -77,6 +73,22 @@ def toxin_cancer_correlation(db):
 		cancer_rate.append(row[0])
 		toxin_level.append(row[1])
 	print("The correlation between " + cancer_type + " and " + toxin_type + " is: " + str(numpy.corrcoef(toxin_level, cancer_rate)[0][1]))
+
+def pick_cancer():
+	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
+	for i in range(len(cancers)):
+		print(i+1,"-",cancers[i])
+	numby = input("Enter the number for which cancer you would like to get information on: ")
+	num = int(numby)
+	return cancers[num-1]
+
+def pick_toxin():
+	toxins = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
+	for i in range(len(toxins)):
+		print(i+1,"-",toxins[i])
+	numby = input("Enter the number for which toxin you would like to get information on: ")
+	num = int(numby)
+	return toxins[num-1]
 
 def main():
 	# Initialize Imports
@@ -117,9 +129,11 @@ def main():
 
 		#run function per user input
 		if query_ == 1:
-			find_specific_cancer(db)
+			type = pick_cancer()
+			find_specific_cancer(db,type)
 		if query_ == 2:
-			high_low_comparison(db)
+			type = pick_cancer()
+			high_low_comparison(db,type)
 
 
 if __name__ == "__main__":

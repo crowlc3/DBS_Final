@@ -34,19 +34,29 @@ import os
 from texttable import Texttable
 from database import DatabaseController
 
-def find_specific_cancer(db,tt):
-	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
-	tt.set_cols_align(["l","l","l","l","l"])
-	tt.add_rows(db.find_specific_cancer(type))
+tt = Texttable()
+
+# Print database output in a nice table
+def printTextTable(alignment, header, data):
+	global tt
+	tt.set_deco(Texttable.HEADER)
+	tt.set_cols_align(alignment)
+	tt.header(header)
+	tt.add_rows(data, header=False)
 	print(tt.draw())
 	tt.reset()
+
+def find_specific_cancer(db,tt):
+	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+	printTextTable(["l","l","l","l","l"],
+					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
+					db.find_specific_cancer(type))
 
 def main():
 	# Initialize Imports
 	db = DatabaseController()
-	tt = Texttable()
-	tt.set_deco(Texttable.HEADER)
 
+	# Begin text interaction with user
 	print("Welcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
 	print("Please pick from one of these options to query our database:")

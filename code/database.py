@@ -18,18 +18,9 @@ class DatabaseController:
 			cursor.execute(query, params)
 			return cursor.fetchall()
 
-	# return self.__runQuery(query, ())
-
 	def find_specific_cancer(self,cancer_type):
 		query = "SELECT * FROM cancers WHERE CANCER LIKE %s;"
 		return self.__runQuery(query,[cancer_type])
-
-
-
-# Returns the results from a query
-# def runQuery(query, params):
-# 	with conn.cursor() as cursor:
-
 
 
 

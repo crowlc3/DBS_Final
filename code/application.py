@@ -52,8 +52,8 @@ def find_specific_cancer(db,type):
 					db.find_specific_cancer(type))
 
 def high_low_comparison(db,type):
-	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
-					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l"],
+					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
 
 

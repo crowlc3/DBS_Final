@@ -1,9 +1,22 @@
 import os
+from texttable import Texttable
 from database import DatabaseController
 
+<<<<<<< HEAD
+=======
+def ttDemo(tt):
+	tt.set_cols_align(["l", "c", "r"])
+	# First array column is a header
+	tt.add_rows([["Left", "Number", "Right"], ["Value", "10", "More Value"]])
+	print(tt.draw())
+
 def main():
-	# initialize the database class
+	# Initialize Imports
 	db = DatabaseController()
+	tt = Texttable()
+	tt.set_deco(Texttable.HEADER)
+
+	ttDemo(tt)
 
 	print("Welcome to our application")
 	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
@@ -23,6 +36,7 @@ def main():
 
 if __name__ == "__main__":
 	main()
+>>>>>>> d872679a49a5c25dce12eafe6586889630ddd880
 
 #-------------Heres some ideas for queries-------------------#
 
@@ -55,3 +69,40 @@ if __name__ == "__main__":
 #*****Cancers*****
 # Select the data for a specific county
 # select data for apsecific type
+
+
+
+def find_specific_cancer():
+	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+	db.find_specific_cancer(type)
+
+def main():
+	# initialize the database class
+	db = DatabaseController()
+
+	print("Welcome to our application")
+	print("Contributors: Christopher Pence, Howard Zhao, Aidan Duane, Caitlin Crowley")
+	print("Please pick from one of these options to query our database:")
+
+
+	#array of options for queries
+	arr = ["1: find specific cancer"]
+
+
+	for item in arr:
+		print(item)
+
+
+	query = input("Enter the number of the query you would like to run: ")
+	query_ = int(query)
+
+
+	print("You selected",arr[query_-1])
+
+	#run function per user input
+	if query_ == 1:
+		find_specific_cancer()
+
+
+if __name__ == "__main__":
+	main()

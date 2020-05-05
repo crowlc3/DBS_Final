@@ -10,8 +10,8 @@ def ttDemo(tt):
 
 
 def find_specific_cancer():
-type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
-db.find_specific_cancer(type)
+	type = input("Type which cancer you want to get data for [Leukemias, Lung and Bronchus, Melanomas of the Skin]: ")
+	db.find_specific_cancer(type)
 
 def main():
 	# Initialize Imports

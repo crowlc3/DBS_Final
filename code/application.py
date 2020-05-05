@@ -66,19 +66,26 @@ def main():
 	arr = ["1: find specific cancer"]
 
 
-	for item in arr:
-		print(item)
+	query = 's'
 
 
-	query = input("Enter the number of the query you would like to run: ")
-	query_ = int(query)
+	while(query != 'q'):
+		print()
+		print()
+		for item in arr:
+			print(item)
+		query = input("Enter the number of the query you would like to run: ")
+		if(query == 'q'):
+			print("Bye Bye\n")
+			break
+		query_ = int(query)
 
 
-	print("You selected",arr[query_-1])
+		print("You selected",arr[query_-1])
 
-	#run function per user input
-	if query_ == 1:
-		find_specific_cancer(db,tt)
+		#run function per user input
+		if query_ == 1:
+			find_specific_cancer(db,tt)
 
 
 if __name__ == "__main__":

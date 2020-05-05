@@ -53,7 +53,7 @@ def pick_cancer():
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
 	for i in range(len(cancers)):
 		print(i+1,"-",cancers[i])
-	numby = input("Enter the number for which cancer you would like to get information on: ")
+	numby = input("Enter a cancer type: ")
 	num = int(numby)
 	return cancers[num-1]
 
@@ -61,7 +61,7 @@ def pick_toxin():
 	toxins = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
 	for i in range(len(toxins)):
 		print(i+1,"-",toxins[i])
-	numby = input("Enter the number for which toxin you would like to get information on: ")
+	numby = input("Enter a toxin type: ")
 	num = int(numby)
 	return toxins[num-1]
 

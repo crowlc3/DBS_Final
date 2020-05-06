@@ -146,7 +146,7 @@ class DatabaseController:
 		return self.__runQuery(query,[county])
 
 	def toxins_threshold(self, toxin,threshold):
-		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s;"
+		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s ORDER BY "+toxin+";"
 		return self.__runQuery(query,[threshold])
 
 	def toxins_and_cancers(self):

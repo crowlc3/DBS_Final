@@ -104,12 +104,25 @@ def county_cases_totaled(db):
 					["County", "Total Cases", "Population", "Cancer Rate %"],
 					db.select_county_cases_totaled(county_name))
 
-def find_county_toxin_data(db):
+def find_county_toxin_data_with_cancer(db):
 	cancer_type = pick_cancer()
 	county = input("Enter county name: ")
 	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
 					["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-					db.find_county_toxin_data(county,cancer_type))
+					db.find_county_toxin_data_with_cancer(county,cancer_type))
+
+def find_county_toxin_data(db):
+	county = input("Enter county name: ")
+	printTextTable(["l","l","l","l","l","l","l","l","l","l"],
+					["County", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.find_county_toxin_data(county))
+
+
+def s_toxins_all(db):
+	toxin = pick_toxin()
+	printTextTable(["l","l"],
+					["County", toxin],
+					db.s_toxins_all(toxin))
 
 
 def toxins_threshold(db):
@@ -118,6 +131,12 @@ def toxins_threshold(db):
 	printTextTable(["l","l"],
 					["County", toxin],
 					db.toxins_threshold(toxin,threshold))
+
+
+def toc_on_county(db):
+    printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
+                    ["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+                    db.toc_on_county())
 
 
 def pick_cancer():
@@ -166,7 +185,10 @@ def main():
 			"5: threshold cancer cases",
 			"6: amount for a county",
 			"7: Total number of cancer cases in a given county.",
-			"8: toxin threshold"]
+			"8: toxin threshold",
+			"9: s_toxins_all",
+			"10: toc",
+			"11: county"]
 
 
 	query = 's'
@@ -205,11 +227,17 @@ def main():
 		elif query_ == 5:
 			cancer_cases_threshold(db)
 		elif query_ ==6:
-			find_county_toxin_data(db)
+			find_county_toxin_data_with_cancer(db)
 		elif query_ == 7:
 			county_cases_totaled(db)
 		elif query_ == 8:
 			toxins_threshold(db)
+		elif query_ == 9:
+			s_toxins_all(db)
+		elif query_ == 10:
+			toc_on_county(db)
+		elif query_ ==11:
+			find_county_toxin_data(db)
 
 
 if __name__ == "__main__":

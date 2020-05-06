@@ -180,6 +180,8 @@ def main():
 			cancer_cases_threshold(db)
 		elif query_ ==6:
 			find_county_toxin_data(db)
+		elif query_ == 7:
+			
 
 
 if __name__ == "__main__":

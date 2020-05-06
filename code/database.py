@@ -88,13 +88,13 @@ class DatabaseController:
 
 	# Select the toxins levels per country (ME!)
 	def toxins_in_county(self):
-		query = "SELECT * FROM toxins;"
+		query = "SELECT cancers.county,cancers.cancer,cancers.cases,cancers.population,cancers.age_adjusted_rate,toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2 FROM toxins JOIN cancers ON (cancers.county=toxins.county);"
 		return self.__runQuery(query, [])
 	
 	
 	# Select the amount of a specific toxin in all counties (ME!)	
 	def s_toxins_all(self, toxin):
-		query = "SELECT county, {} FROM toxins;".format(toxin)
+		query = "SELECT toxins.county, {} FROM toxins JOIN cancers ON (toxins.county=cancers.county);".format(toxin)
 		return self.__runQuery(query, [])
 
 

@@ -88,13 +88,18 @@ class DatabaseController:
 
 
 	def cancer_cases_threshold(self, cases):
-			query = "SELECT * FROM cancers JOIN toxins ON cancers.county = toxins.county WHERE cases > %s ORDER BY cancers.county ASC"
+			query = "SELECT * FROM cancers WHERE cases > %s ORDER BY cancers.county ASC"
 			return self.__runQuery(query,[cases])
 
 	def find_county_toxin_data(self,county,cancer_type):
 		query = """SELECT cancers.county,cancers.cancer,cancers.cases,cancers.population,cancers.age_adjusted_rate,toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2
 					from cancers join toxins on cancers.county = toxins.county where cancers.county = %s AND cancers.cancer = %s;"""
 		return self.__runQuery(query,[county,cancer_type])
+
+
+	def toxins_threshold(self, toxin,threshold):
+		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s;"
+		return self.__runQuery(query,[threshold])
 
 
 

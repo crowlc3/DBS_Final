@@ -108,6 +108,13 @@ def find_county_toxin_data(db):
 					db.find_county_toxin_data(county,cancer_type))
 
 
+def toxins_threshold(db):
+	toxin = pick_toxin()
+	threshold = input("Etner threshold: ");
+	printTextTable(["l","l"],
+					["County", toxin],
+					db.toxins_threshold(toxin,threshold))
+
 
 def pick_cancer():
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
@@ -142,7 +149,8 @@ def main():
 			"3: Correlation between toxin level and cancer rate over all counties.",
 			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
 			"5: threshold cancer cases",
-			"6: amount for a county"]
+			"6: amount for a county",
+			"7: toxin threshold"]
 
 
 	query = 's'
@@ -182,6 +190,8 @@ def main():
 			cancer_cases_threshold(db)
 		elif query_ ==6:
 			find_county_toxin_data(db)
+		elif query_ == 7:
+			toxins_threshold(db)
 
 
 if __name__ == "__main__":

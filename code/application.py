@@ -161,7 +161,7 @@ def main():
 	both = ["1: View all information",
 			"2: Find toxin cancer correlation",
 			"3: Compare information for highest amount of cases and lowest amount of cases",
-			"4: Find county specific data",
+			"4: Find county specific data with cancer",
 			"5: Select all data for a specific toxin"]
 
 
@@ -189,69 +189,65 @@ def main():
 			#cancer info only
 			for item in cancer:
 				print(item)
-			query = input("Enter the number of the query you would like to run: ")
+			queryc = input("Enter the number of the query you would like to run: ")
 
-			if(query == 'q'):
+			if(queryc == 'q'):
 				print("Bye Bye\n")
 				break
 				###End program
 
-			query_ = int(query)
+			query_c = int(query)
 
+			if(query_c == 1):
+				find_specific_cancer(db)
+			if(query_c == 2):
+				cancer_cases_threshold(db)
+			if(query_c == 3):
+				county_cases_totaled(db)
 
 		if(query_==2):
 			#toxin info only
 			for item in toxin:
 				print(item)
-			query = input("Enter the number of the query you would like to run: ")
+			queryt = input("Enter the number of the query you would like to run: ")
 
-			if(query == 'q'):
+			if(queryt == 'q'):
 				print("Bye Bye\n")
 				break
 				###End program
 
-			query_ = int(query)
+			query_t = int(query)
 
+			if(query_t==1):
+				find_county_toxin_data(db)
+			if(query_t==2):
+				toxins_in_county(db)
+			if(query_t==3):
+				toxins_threshold(db)
 
 		if(query_==3):
 			#both
 			for item in both:
 				print(item)
-			query = input("Enter the number of the query you would like to run: ")
+			queryb = input("Enter the number of the query you would like to run: ")
 
-			if(query == 'q'):
+			if(queryb == 'q'):
 				print("Bye Bye\n")
 				break
 				###End program
 
-			query_ = int(query)
+			query_b = int(query)
 
-		#run function per user input
-		# if query_ == 1:
-		# 	find_specific_cancer(db)
-		# elif query_ == 2:
-		# 	type = pick_cancer()
-		# 	high_low_comparison(db)
-		# elif query_ == 3:
-		# 	toxin_cancer_correlation(db)
-		# elif query_ == 4:
-		# 	compare_cancer_rate_with_hl_toxin(db)
-		# elif query_ == 5:
-		# 	cancer_cases_threshold(db)
-		# elif query_ ==6:
-		# 	find_county_toxin_data_with_cancer(db)
-		# elif query_ == 7:
-		# 	county_cases_totaled(db)
-		# elif query_ == 8:
-		# 	toxins_threshold(db)
-		# elif query_ == 9:
-		# 	s_toxins_all(db)
-		# elif query_ == 10:
-		# 	toc_on_county(db)
-		# elif query_ ==11:
-		# 	find_county_toxin_data(db)
-		# elif query_ == 12:
-		# 	toxins_in_county(db)
+			if(query_b==1):
+				toc_on_county(db)
+			if(query_b==2):
+				toxin_cancer_correlation(db)
+			if(query_b==3):
+				high_low_comparison(db)
+			if(query_b==4):
+				find_county_toxin_data_with_cancer(db)
+			if(query_b==5):
+				s_toxins_all(db)
 
 
 if __name__ == "__main__":

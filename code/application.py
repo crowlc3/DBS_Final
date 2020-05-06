@@ -198,16 +198,16 @@ def main():
 				break
 				###End program
 
-			query_c = int(query)
+			query_c = int(queryc)
 
 			if(query_c == 1):
 				find_specific_cancer(db)
-			if(query_c == 2):
+			elif(query_c == 2):
 				cancer_cases_threshold(db)
-			if(query_c == 3):
+			elif(query_c == 3):
 				county_cases_totaled(db)
 
-		if(query_==2):
+		elif(query_==2):
 			#toxin info only
 			print()
 			for item in toxin:
@@ -219,16 +219,16 @@ def main():
 				break
 				###End program
 
-			query_t = int(query)
+			query_t = int(queryt)
 
 			if(query_t==1):
 				find_county_toxin_data(db)
-			if(query_t==2):
+			elif(query_t==2):
 				toxins_in_county(db)
-			if(query_t==3):
+			elif(query_t==3):
 				toxins_threshold(db)
 
-		if(query_==3):
+		elif(query_==3):
 			#both
 			print()
 			for item in both:
@@ -240,19 +240,19 @@ def main():
 				break
 				###End program
 
-			query_b = int(query)
+			query_b = int(queryb)
 
 			if(query_b==1):
 				toc_on_county(db)
-			if(query_b==2):
+			elif(query_b==2):
 				toxin_cancer_correlation(db)
-			if(query_b==3):
+			elif(query_b==3):
 				high_low_comparison(db)
-			if(query_b==4):
+			elif(query_b==4):
 				find_county_toxin_data_with_cancer(db)
-			if(query_b==5):
+			elif(query_b==5):
 				s_toxins_all(db)
-			if(query_b == 6):
+			elif(query_b == 6):
 				compare_cancer_rate_with_hl_toxin(db)
 
 

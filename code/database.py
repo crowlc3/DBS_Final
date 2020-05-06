@@ -61,8 +61,16 @@ class DatabaseController:
 					ON toxins.county = max_cancer.countys
 					WHERE (min_cancer.cases IS NOT NULL OR max_cancer.cases IS NOT NULL);"""
 		return self.__runQuery(query,[cancer_type,cancer_type])
-
-
+	
+	# Select the toxins levels per country (ME!)
+	def toxins_in_county(self):
+		query = "SELECT * FROM toxins;"
+		return self.__runQuery(query, [])
+	
+	
+	# Select the amount of a specific toxin in all counties (ME!)	
+	def s_toxins_all(self, toxin):
+		query = "SELECT county, {} FROM toxins;".format(toxin)
 
 
 def main():

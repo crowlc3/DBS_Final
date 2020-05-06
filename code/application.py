@@ -1,15 +1,13 @@
 #-------------Heres some ideas for queries-------------------#
 
-
-
 # - At least two queries that select at least some data from both of your datasets
 
 #*****Toxins*****
-# Select the toxins levels per country
-# Select the amount of a specific toxin in all counties
+# Select the toxins levels per country (ME!)
+# Select the amount of a specific toxin in all counties (ME!)
 
 #*****Cancers*****
-# Select the data from each type of cancer
+# Select the data from each type of cancer (in progress)
 
 
 # - At least two queries that showcase syntax beyond the basic `SELECT-FROM-WHERE` clauses (e.g., Grouping, Subqueries, etc.)

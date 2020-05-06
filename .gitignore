@@ -3,3 +3,5 @@ env
 code/datasets
 code/__pycache__
 code/test.sql
+Pipfile
+Pipfile.lock

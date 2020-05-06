@@ -211,7 +211,7 @@ def main():
 		elif(query_==2):
 			#toxin info only
 			print()
-			for item in toxin:
+			for item in emission:
 				print(item)
 			queryt = input("Enter the number of the query you would like to run: ")
 

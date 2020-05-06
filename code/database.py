@@ -22,7 +22,6 @@ class DatabaseController:
 		query = "SELECT * FROM cancers WHERE CANCER LIKE %s;"
 		return self.__runQuery(query,[cancer_type])
 
-
 	def select_toxin_cancer_correlation(self, cancer_type, toxin_type):
 		sql = """
 		SELECT ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, toxins.%s
@@ -33,6 +32,19 @@ class DatabaseController:
 		ORDER BY rate ASC, toxins.%s ASC
 		""" % (toxin_type, toxin_type, "'"+cancer_type+"'", toxin_type)
 		return self.__runQuery(sql, [])
+
+	def select_county_cases_totaled(self, county_name):
+		sql = """
+		SELECT 
+			cancers.county, 
+			sum(cancers.cases) as "Total Cases", 
+			avg(cancers.population)::INTEGER as "Total Population",
+			((sum(cancers.cases)::DOUBLE PRECISION / avg(cancers.population)) * 100) as Rate
+		FROM cancers
+		WHERE cancers.county = %s
+		GROUP BY cancers.county;
+		"""
+		return self.__runQuery(sql, [county_name])
 
 	def select_cancer_rate_with_hl_toxin(self, cancer_type, toxin_type):
 		sql = """

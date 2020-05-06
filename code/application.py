@@ -197,7 +197,7 @@ def main():
 			find_county_toxin_data(db)
 		elif query_ == 7:
 			county_cases_totaled(db)
-		elif query_ = 8:
+		elif query_ == 8:
 			toxins_threshold(db)
 
 

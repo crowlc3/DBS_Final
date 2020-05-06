@@ -88,6 +88,14 @@ def toxin_cancer_correlation(db,):
 	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)))
 
 
+def find_county_toxin_data(db):
+	cancer_type = pick_cancer()
+	county = input("Enter county name: ")
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
+					["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.find_county_toxin_data(county,cancer_type))
+
+
 
 def pick_cancer():
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
@@ -121,7 +129,8 @@ def main():
 			"2: highlow",
 			"3: Correlation between toxin level and cancer rate over all counties.",
 			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
-			"5: threshold cancer cases"]
+			"5: threshold cancer cases",
+			"6: amount for a county"]
 
 
 	query = 's'
@@ -159,6 +168,8 @@ def main():
 			compare_cancer_rate_with_hl_toxin(db)
 		elif query_ == 5:
 			cancer_cases_threshold(db)
+		elif query_ ==6:
+			find_county_toxin_data(db)
 
 
 if __name__ == "__main__":

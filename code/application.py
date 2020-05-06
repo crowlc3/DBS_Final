@@ -102,7 +102,7 @@ def find_county_toxin_data(db):
 
 def toxins_threshold(db):
 	toxin = pick_toxin()
-	threshold = input("Etner threshold: ");
+	threshold = input("Enter threshold: ");
 	printTextTable(["l","l"],
 					["County", toxin],
 					db.toxins_threshold(toxin,threshold))

@@ -87,6 +87,11 @@ class DatabaseController:
 		return self.__runQuery(query,[cancer_type,cancer_type])
 
 
+	def cancer_cases_threshold(self, cases):
+			query = "SELECT * FROM cancers WHERE cases > %s ORDER BY county ASC"
+			return self.__runQuery(query,[cases])
+
+
 
 
 def main():

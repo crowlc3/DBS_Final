@@ -103,7 +103,7 @@ class DatabaseController:
 		return self.__runQuery(query, [])
 
 	def s_toxins_all(self, toxin):
-		query = "SELECT toxins.county, {} FROM toxins JOIN cancers ON (toxins.county=cancers.county);".format(toxin)
+		query = """SELECT county, "+toxin+" FROM toxins;"""
 		return self.__runQuery(query, [])
 
 	def cancer_cases_threshold(self, cases):

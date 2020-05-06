@@ -156,14 +156,14 @@ def main():
 
 	toxin = ["1: Find toxin information for a certain county",
 			"2: Find toxin information for all counties",
-			"3: Find amount of toxins over a certain threshold"]
+			"3: Find amount of toxins over a certain threshold",
+			"4: Find all toxin information for a specific toxin"]
 
 	both = ["1: View all information",
 			"2: Find toxin cancer correlation",
 			"3: Compare information for highest amount of cases and lowest amount of cases",
 			"4: Find county specific data with cancer",
-			"5: Select all data for a specific toxin",
-			"6: Compare cancer rates in counties with the highest and lowest levels of a given toxin."]
+			"5: Compare cancer rates in counties with the highest and lowest levels of a given toxin."]
 
 
 	query = 's'
@@ -227,6 +227,8 @@ def main():
 				toxins_in_county(db)
 			elif(query_t==3):
 				toxins_threshold(db)
+			elif(query_t==4):
+				s_toxins_all(db)
 
 		elif(query_==3):
 			#both
@@ -250,9 +252,7 @@ def main():
 				high_low_comparison(db)
 			elif(query_b==4):
 				find_county_toxin_data_with_cancer(db)
-			elif(query_b==5):
-				s_toxins_all(db)
-			elif(query_b == 6):
+			elif(query_b == 5):
 				compare_cancer_rate_with_hl_toxin(db)
 
 

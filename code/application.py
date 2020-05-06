@@ -32,8 +32,12 @@
 
 import os
 import numpy
+import matplotlib
+import matplotlib.pyplot as plt
 from texttable import Texttable
 from database import DatabaseController
+
+matplotlib.style.use('seaborn-bright')
 
 # Print database output in a nice table
 def printTextTable(alignment, header, data):
@@ -79,8 +83,16 @@ def toxin_cancer_correlation(db,):
 	for row in data:
 		cancer_rate.append(row[0])
 		toxin_level.append(row[1])
-	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)))
+	correlation = round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)
+	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(correlation))
 
+	# Output scatterplot
+	print("\nA scatterplot of this data has been saved under plots/scatterplot.png")
+	plt.scatter(cancer_rate, toxin_level)
+	plt.xlabel(cancer_type + " Cancer Rate")
+	plt.ylabel(toxin_type + " Level (Tons)")
+	plt.title("Correlation = " + str(correlation))
+	plt.savefig("plots/scatterplot.png")
 
 
 def pick_cancer():

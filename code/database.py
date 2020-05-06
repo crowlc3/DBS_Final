@@ -98,14 +98,13 @@ class DatabaseController:
 					WHERE (min_cancer.cases IS NOT NULL OR max_cancer.cases IS NOT NULL);"""
 		return self.__runQuery(query,[cancer_type,cancer_type])
 
-
 	def toxins_in_county(self):
 		query = "SELECT * from toxins;"
 		return self.__runQuery(query, [])
+
 	def s_toxins_all(self, toxin):
 		query = "SELECT toxins.county, {} FROM toxins JOIN cancers ON (toxins.county=cancers.county);".format(toxin)
 		return self.__runQuery(query, [])
-
 
 	def cancer_cases_threshold(self, cases):
 			query = "SELECT * FROM cancers WHERE cases > %s ORDER BY cancers.county ASC"
@@ -119,7 +118,6 @@ class DatabaseController:
 	def find_county_toxin_data(self,county):
 		query = """SELECT * from toxins where toxins.county = %s;"""
 		return self.__runQuery(query,[county])
-
 
 	def toxins_threshold(self, toxin,threshold):
 		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s;"

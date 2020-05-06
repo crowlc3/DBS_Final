@@ -48,29 +48,10 @@ def printTextTable(alignment, header, data):
 	print()
 	print(tt.draw())
 
-
 def find_specific_cancer(db,type):
 	printTextTable(["l","l","l","l","l"],
 					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
 					db.find_specific_cancer(type))
-
-def high_low_comparison(db,type):
-	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l"],
-					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-					db.high_low_comparison(type))
-
-def cancer_cases_threshold(db):
-	cases = input("How many cases would you like to set as the threshold? - ")
-	printTextTable(["l","l","l","l","l"],
-					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
-					db.cancer_cases_threshold(cases))
-
-def compare_cancer_rate_with_hl_toxin(db):
-	cancer_type = pick_cancer()
-	toxin_type = pick_toxin()
-	printTextTable(["l","c","c","l"],
-					["Cancer Type", "Cancer Rate %", toxin_type + " Level", "County"],
-					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
 def toxin_cancer_correlation(db,):
 	cancer_type = pick_cancer()
@@ -104,6 +85,30 @@ def county_cases_totaled(db):
 					["County", "Total Cases", "Population", "Cancer Rate %"],
 					db.select_county_cases_totaled(county_name))
 
+def compare_cancer_rate_with_hl_toxin(db):
+	cancer_type = pick_cancer()
+	toxin_type = pick_toxin()
+	printTextTable(["l","c","c","l"],
+					["Cancer Type", "Cancer Rate %", toxin_type + " Level", "County"],
+					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
+
+def high_low_comparison(db,type):
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l"],
+					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.high_low_comparison(type))
+
+def s_toxins_all(db):
+	toxin = pick_toxin()
+	printTextTable(["l","l"],
+					["County", toxin],
+					db.s_toxins_all(toxin))
+
+def cancer_cases_threshold(db):
+	cases = input("How many cases would you like to set as the threshold? - ")
+	printTextTable(["l","l","l","l","l"],
+					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
+					db.cancer_cases_threshold(cases))
+
 def find_county_toxin_data_with_cancer(db):
 	cancer_type = pick_cancer()
 	county = input("Enter county name: ")
@@ -117,21 +122,12 @@ def find_county_toxin_data(db):
 					["County", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.find_county_toxin_data(county))
 
-
-def s_toxins_all(db):
-	toxin = pick_toxin()
-	printTextTable(["l","l"],
-					["County", toxin],
-					db.s_toxins_all(toxin))
-
-
 def toxins_threshold(db):
 	toxin = pick_toxin()
 	threshold = input("Etner threshold: ");
 	printTextTable(["l","l"],
 					["County", toxin],
 					db.toxins_threshold(toxin,threshold))
-
 
 def toc_on_county(db):
     printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
@@ -238,6 +234,8 @@ def main():
 			toc_on_county(db)
 		elif query_ ==11:
 			find_county_toxin_data(db)
+		elif query_ == 12:
+			toxins_in_county(db)
 
 
 if __name__ == "__main__":

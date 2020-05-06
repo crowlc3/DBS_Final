@@ -60,35 +60,6 @@ def high_low_comparison(db,type):
 					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
 
-
-
-def pick_cancer():
-	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
-	for i in range(len(cancers)):
-		print(i+1,"-",cancers[i])
-	numby = input("Enter a cancer type: ")
-	num = int(numby)
-	return cancers[num-1]
-
-def pick_toxin():
-	toxins = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
-	for i in range(len(toxins)):
-		print(i+1,"-",toxins[i])
-	numby = input("Enter a toxin type: ")
-	num = int(numby)
-	return toxins[num-1]
-
-
-def find_specific_cancer(db,type):
-	printTextTable(["l","l","l","l","l"],
-					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
-					db.find_specific_cancer(type))
-
-def high_low_comparison(db,type):
-	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
-					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-					db.high_low_comparison(type))
-
 def compare_cancer_rate_with_hl_toxin(db):
 	printTextTable(["l","c","c","l"],
 					["Cancer Type", "Cancer Rate", "Toxin Level", "County"],
@@ -110,6 +81,24 @@ def toxin_cancer_correlation(db,):
 		cancer_rate.append(row[0])
 		toxin_level.append(row[1])
 	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)))
+
+
+
+def pick_cancer():
+	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
+	for i in range(len(cancers)):
+		print(i+1,"-",cancers[i])
+	numby = input("Enter a cancer type: ")
+	num = int(numby)
+	return cancers[num-1]
+
+def pick_toxin():
+	toxins = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
+	for i in range(len(toxins)):
+		print(i+1,"-",toxins[i])
+	numby = input("Enter a toxin type: ")
+	num = int(numby)
+	return toxins[num-1]
 
 def main():
 	# Initialize Imports

@@ -22,7 +22,6 @@ class DatabaseController:
 		query = "SELECT * FROM cancers WHERE CANCER LIKE %s;"
 		return self.__runQuery(query,[cancer_type])
 
-
 	def select_toxin_cancer_correlation(self, cancer_type, toxin_type):
 		sql = """
 		SELECT ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, toxins.%s
@@ -33,6 +32,19 @@ class DatabaseController:
 		ORDER BY rate ASC, toxins.%s ASC
 		""" % (toxin_type, toxin_type, "'"+cancer_type+"'", toxin_type)
 		return self.__runQuery(sql, [])
+
+	def select_county_cases_totaled(self, county_name):
+		sql = """
+		SELECT 
+			cancers.county, 
+			sum(cancers.cases) as "Total Cases", 
+			avg(cancers.population)::INTEGER as "Total Population",
+			((sum(cancers.cases)::DOUBLE PRECISION / avg(cancers.population)) * 100) as Rate
+		FROM cancers
+		WHERE cancers.county = %s
+		GROUP BY cancers.county;
+		"""
+		return self.__runQuery(sql, [county_name])
 
 	def select_cancer_rate_with_hl_toxin(self, cancer_type, toxin_type):
 		sql = """
@@ -86,6 +98,17 @@ class DatabaseController:
 					WHERE (min_cancer.cases IS NOT NULL OR max_cancer.cases IS NOT NULL);"""
 		return self.__runQuery(query,[cancer_type,cancer_type])
 
+	# Select the toxins levels per country (ME!)
+	def toxins_in_county(self):
+		query = "SELECT cancers.county,cancers.cancer,cancers.cases,cancers.population,cancers.age_adjusted_rate,toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2 FROM toxins JOIN cancers ON (cancers.county=toxins.county);"
+		return self.__runQuery(query, [])
+	
+	
+	# Select the amount of a specific toxin in all counties (ME!)	
+	def s_toxins_all(self, toxin):
+		query = "SELECT toxins.county, {} FROM toxins JOIN cancers ON (toxins.county=cancers.county);".format(toxin)
+		return self.__runQuery(query, [])
+
 
 	def cancer_cases_threshold(self, cases):
 			query = "SELECT * FROM cancers WHERE cases > %s ORDER BY cancers.county ASC"
@@ -100,8 +123,6 @@ class DatabaseController:
 	def toxins_threshold(self, toxin,threshold):
 		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s;"
 		return self.__runQuery(query,[threshold])
-
-
 
 
 

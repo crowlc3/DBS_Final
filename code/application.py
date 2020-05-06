@@ -1,15 +1,13 @@
 #-------------Heres some ideas for queries-------------------#
 
-
-
 # - At least two queries that select at least some data from both of your datasets
 
 #*****Toxins*****
-# Select the toxins levels per country
-# Select the amount of a specific toxin in all counties
+# Select the toxins levels per country (ME!)
+# Select the amount of a specific toxin in all counties (ME!)
 
 #*****Cancers*****
-# Select the data from each type of cancer
+# Select the data from each type of cancer (in progress)
 
 
 # - At least two queries that showcase syntax beyond the basic `SELECT-FROM-WHERE` clauses (e.g., Grouping, Subqueries, etc.)
@@ -71,7 +69,7 @@ def compare_cancer_rate_with_hl_toxin(db):
 	cancer_type = pick_cancer()
 	toxin_type = pick_toxin()
 	printTextTable(["l","c","c","l"],
-					["Cancer Type", "Cancer Rate", toxin_type + " Level", "County"],
+					["Cancer Type", "Cancer Rate %", toxin_type + " Level", "County"],
 					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
 def toxin_cancer_correlation(db,):
@@ -99,6 +97,12 @@ def toxin_cancer_correlation(db,):
 	plt.ylabel(toxin_type + " Level (Tons)")
 	plt.title("Correlation = " + str(correlation))
 	plt.savefig("plots/scatterplot.png")
+
+def county_cases_totaled(db):
+	county_name = input("Enter county name: ")
+	printTextTable(["l","c","c","c"],
+					["County", "Total Cases", "Population", "Cancer Rate %"],
+					db.select_county_cases_totaled(county_name))
 
 def find_county_toxin_data(db):
 	cancer_type = pick_cancer()
@@ -150,7 +154,8 @@ def main():
 			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
 			"5: threshold cancer cases",
 			"6: amount for a county",
-			"7: toxin threshold"]
+			"7: Total number of cancer cases in a given county.",
+			"8: toxin threshold"]
 
 
 	query = 's'
@@ -191,6 +196,8 @@ def main():
 		elif query_ ==6:
 			find_county_toxin_data(db)
 		elif query_ == 7:
+			county_cases_totaled(db)
+		elif query_ = 8:
 			toxins_threshold(db)
 
 

@@ -35,11 +35,9 @@ import numpy
 from texttable import Texttable
 from database import DatabaseController
 
-tt = Texttable(0)
-
 # Print database output in a nice table
 def printTextTable(alignment, header, data):
-	global tt
+	tt = Texttable(0)
 	tt.set_max_width(0)
 	tt.set_deco(Texttable.HEADER)
 	tt.set_cols_align(alignment)
@@ -47,7 +45,6 @@ def printTextTable(alignment, header, data):
 	tt.add_rows(data, header=False)
 	print()
 	print(tt.draw())
-	tt.reset()
 
 
 def find_specific_cancer(db,type):

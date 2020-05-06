@@ -70,7 +70,7 @@ class DatabaseController:
 		""" % ({"toxin_type": toxin_type, "cancer_type": "'"+cancer_type+"'"})
 		return self.__runQuery(sql, [])
 
-	def high_low_comparison(self,cancer_type):
+	def high_low_case_comparison(self,cancer_type):
 		query = """SELECT toxins.county,
 					min_cancer.cases, max_cancer.cases,
 					toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2
@@ -98,11 +98,11 @@ class DatabaseController:
 					WHERE (min_cancer.cases IS NOT NULL OR max_cancer.cases IS NOT NULL);"""
 		return self.__runQuery(query,[cancer_type,cancer_type])
 
-	def toxins_in_county(self):
+	def toxins_in_all_counties(self):
 		query = "SELECT * FROM toxins;"
 		return self.__runQuery(query, [])
 
-	def s_toxins_all(self, toxin):
+	def select_specific_toxin(self, toxin):
 		query = "SELECT county, "+toxin+" FROM toxins;"
 		return self.__runQuery(query, [])
 
@@ -149,7 +149,7 @@ class DatabaseController:
 		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s;"
 		return self.__runQuery(query,[threshold])
 
-	def toc_on_county(self):
+	def toxins_and_cancers(self):
 		query = """
 		SELECT 
 			cancers.county,

@@ -63,22 +63,22 @@ def compare_cancer_rate_with_hl_toxin(db):
 					["Cancer Type", "Cancer Rate %", toxin_type + " Level", "County"],
 					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
-def high_low_comparison(db):
+def high_low_case_comparison(db):
 	type = pick_cancer()
 	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l"],
 					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-					db.high_low_comparison(type))
+					db.high_low_case_comparison(type))
 
-def toxins_in_county(db):
+def toxins_in_all_counties(db):
 	printTextTable(["l","l","l","l","l","l","l","l","l","l"],
 					["County", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-					db.toxins_in_county())
+					db.toxins_in_all_counties())
 
-def s_toxins_all(db):
+def select_specific_toxin(db):
 	toxin = pick_toxin()
 	printTextTable(["l","l"],
 					["County", toxin],
-					db.s_toxins_all(toxin))
+					db.select_specific_toxin(toxin))
 
 def cancer_cases_threshold(db):
 	cases = input("How many cases would you like to set as the threshold? - ")
@@ -106,10 +106,10 @@ def toxins_threshold(db):
 					["County", toxin],
 					db.toxins_threshold(toxin,threshold))
 
-def toc_on_county(db):
+def toxins_and_cancers(db):
     printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
                     ["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-                    db.toc_on_county())
+                    db.toxins_and_cancers())
 
 def pick_cancer():
 	print()
@@ -224,11 +224,11 @@ def main():
 			if(query_t==1):
 				find_county_toxin_data(db)
 			elif(query_t==2):
-				toxins_in_county(db)
+				toxins_in_all_counties(db)
 			elif(query_t==3):
 				toxins_threshold(db)
 			elif(query_t==4):
-				s_toxins_all(db)
+				select_specific_toxin(db)
 
 		elif(query_==3):
 			#both
@@ -245,11 +245,11 @@ def main():
 			query_b = int(queryb)
 
 			if(query_b==1):
-				toc_on_county(db)
+				toxins_and_cancers(db)
 			elif(query_b==2):
 				toxin_cancer_correlation(db)
 			elif(query_b==3):
-				high_low_comparison(db)
+				high_low_case_comparison(db)
 			elif(query_b==4):
 				find_county_toxin_data_with_cancer(db)
 			elif(query_b == 5):

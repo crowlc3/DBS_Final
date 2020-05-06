@@ -34,6 +34,30 @@ class DatabaseController:
 		""" % (toxin_type, toxin_type, "'"+cancer_type+"'", toxin_type)
 		return self.__runQuery(sql, [])
 
+	def select_cancer_rate_with_hl_toxin(self, cancer_type, toxin_type):
+		sql = """
+		SELECT cancers.cancer, ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, hl_toxin.toxin, hl_toxin.county
+		FROM cancers, (
+			(	
+				SELECT county, %(toxin_type)s as toxin
+				FROM toxins
+				WHERE %(toxin_type)s != 0
+				ORDER BY %(toxin_type)s ASC
+				LIMIT 1
+			) UNION (
+				SELECT county, %(toxin_type)s as toxin
+				FROM toxins
+				WHERE %(toxin_type)s != 0
+				ORDER BY %(toxin_type)s DESC
+				LIMIT 1
+			)
+		) as hl_toxin
+		WHERE cancers.county = hl_toxin.county
+		AND cancers.cancer = %(cancer_type)s
+		ORDER BY hl_toxin.toxin ASC;
+		""" % ({"toxin_type": toxin_type, "cancer_type": "'"+cancer_type+"'"})
+		return self.__runQuery(sql, [])
+
 	def high_low_comparison(self,cancer_type):
 		query = """SELECT toxins.county,
 					min_cancer.cases, max_cancer.cases,
@@ -61,7 +85,7 @@ class DatabaseController:
 					ON toxins.county = max_cancer.countys
 					WHERE (min_cancer.cases IS NOT NULL OR max_cancer.cases IS NOT NULL);"""
 		return self.__runQuery(query,[cancer_type,cancer_type])
-	
+
 	# Select the toxins levels per country (ME!)
 	def toxins_in_county(self):
 		query = "SELECT * FROM toxins;"
@@ -71,6 +95,18 @@ class DatabaseController:
 	# Select the amount of a specific toxin in all counties (ME!)	
 	def s_toxins_all(self, toxin):
 		query = "SELECT county, {} FROM toxins;".format(toxin)
+		return self.__runQuery(query, [])
+
+
+	def cancer_cases_threshold(self, cases):
+			query = "SELECT * FROM cancers JOIN toxins ON cancers.county = toxins.county WHERE cases > %s ORDER BY cancers.county ASC"
+			return self.__runQuery(query,[cases])
+
+	def find_county_toxin_data(self,county,cancer_type):
+		query = """SELECT cancers.county,cancers.cancer,cancers.cases,cancers.population,cancers.age_adjusted_rate,toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2
+					from cancers join toxins on cancers.county = toxins.county where cancers.county = %s AND cancers.cancer = %s;"""
+		return self.__runQuery(query,[county,cancer_type])
+
 
 
 def main():

@@ -5,3 +5,5 @@ code/__pycache__
 code/test.sql
 Pipfile
 Pipfile.lock
+code/test.py
+code/plots/scatterplot.png

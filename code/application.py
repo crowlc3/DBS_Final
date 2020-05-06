@@ -30,14 +30,16 @@
 
 import os
 import numpy
+import matplotlib
+import matplotlib.pyplot as plt
 from texttable import Texttable
 from database import DatabaseController
 
-tt = Texttable(0)
+matplotlib.style.use('seaborn-bright')
 
 # Print database output in a nice table
 def printTextTable(alignment, header, data):
-	global tt
+	tt = Texttable(0)
 	tt.set_max_width(0)
 	tt.set_deco(Texttable.HEADER)
 	tt.set_cols_align(alignment)
@@ -45,7 +47,6 @@ def printTextTable(alignment, header, data):
 	tt.add_rows(data, header=False)
 	print()
 	print(tt.draw())
-	tt.reset()
 
 
 def find_specific_cancer(db,type):
@@ -58,6 +59,18 @@ def high_low_comparison(db,type):
 					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
 
+def cancer_cases_threshold(db):
+	cases = input("How many cases would you like to set as the threshold? - ")
+	printTextTable(["l","l","l","l","l"],
+					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
+					db.cancer_cases_threshold(cases))
+
+def compare_cancer_rate_with_hl_toxin(db):
+	cancer_type = pick_cancer()
+	toxin_type = pick_toxin()
+	printTextTable(["l","c","c","l"],
+					["Cancer Type", "Cancer Rate", toxin_type + " Level", "County"],
+					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
 def toxin_cancer_correlation(db,):
 	cancer_type = pick_cancer()
@@ -74,7 +87,23 @@ def toxin_cancer_correlation(db,):
 	for row in data:
 		cancer_rate.append(row[0])
 		toxin_level.append(row[1])
-	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)))
+	correlation = round(numpy.corrcoef(cancer_rate, toxin_level)[0][1], 4)
+	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(correlation))
+
+	# Output scatterplot
+	print("\nA scatterplot of this data has been saved under plots/scatterplot.png")
+	plt.scatter(cancer_rate, toxin_level)
+	plt.xlabel(cancer_type + " Cancer Rate")
+	plt.ylabel(toxin_type + " Level (Tons)")
+	plt.title("Correlation = " + str(correlation))
+	plt.savefig("plots/scatterplot.png")
+
+def find_county_toxin_data(db):
+	cancer_type = pick_cancer()
+	county = input("Enter county name: ")
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
+					["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.find_county_toxin_data(county,cancer_type))
 
 
 
@@ -108,7 +137,10 @@ def main():
 	#array of options for queries
 	arr = ["1: find specific cancer",
 			"2: highlow",
-			"3: Correlation between toxin level and cancer rate over all counties."]
+			"3: Correlation between toxin level and cancer rate over all counties.",
+			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
+			"5: threshold cancer cases",
+			"6: amount for a county"]
 
 
 	query = 's'
@@ -142,6 +174,12 @@ def main():
 			high_low_comparison(db,type)
 		elif query_ == 3:
 			toxin_cancer_correlation(db)
+		elif query_ == 4:
+			compare_cancer_rate_with_hl_toxin(db)
+		elif query_ == 5:
+			cancer_cases_threshold(db)
+		elif query_ ==6:
+			find_county_toxin_data(db)
 
 
 if __name__ == "__main__":

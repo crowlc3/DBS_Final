@@ -61,6 +61,16 @@ def high_low_comparison(db,type):
 					db.high_low_comparison(type))
 
 
+def toxin_cancer_correlation(db,):
+	cancer_type = pick_cancer()
+	toxin_type = pick_toxin()
+	data = db.select_toxin_cancer_correlation(cancer_type, toxin_type)
+
+	printTextTable(["c", "c"],
+					["Cancer Rate", "Toxin Level"],
+					data)
+
+
 
 def pick_cancer():
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
@@ -77,26 +87,6 @@ def pick_toxin():
 	numby = input("Enter a toxin type: ")
 	num = int(numby)
 	return toxins[num-1]
-
-
-def find_specific_cancer(db,type):
-	printTextTable(["l","l","l","l","l"],
-					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
-					db.find_specific_cancer(type))
-
-def high_low_comparison(db,type):
-	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
-					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
-					db.high_low_comparison(type))
-
-def toxin_cancer_correlation(db,):
-	cancer_type = pick_cancer()
-	toxin_type = pick_toxin()
-	data = db.select_toxin_cancer_correlation(cancer_type, toxin_type)
-
-	printTextTable(["c", "c"],
-					["Cancer Rate", "Toxin Level"],
-					data)
 
 	# Compute the correlation
 	toxin_level = []

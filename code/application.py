@@ -61,9 +61,11 @@ def high_low_comparison(db,type):
 					db.high_low_comparison(type))
 
 def compare_cancer_rate_with_hl_toxin(db):
+	cancer_type = pick_cancer()
+	toxin_type = pick_toxin()
 	printTextTable(["l","c","c","l"],
-					["Cancer Type", "Cancer Rate", "Toxin Level", "County"],
-					None)
+					["Cancer Type", "Cancer Rate", toxin_type + " Level", "County"],
+					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
 def toxin_cancer_correlation(db,):
 	cancer_type = pick_cancer()
@@ -114,7 +116,8 @@ def main():
 	#array of options for queries
 	arr = ["1: find specific cancer",
 			"2: highlow",
-			"3: Correlation between toxin level and cancer rate over all counties."]
+			"3: Correlation between toxin level and cancer rate over all counties.",
+			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin."]
 
 
 	query = 's'
@@ -148,6 +151,8 @@ def main():
 			high_low_comparison(db,type)
 		elif query_ == 3:
 			toxin_cancer_correlation(db)
+		elif query_ == 4:
+			compare_cancer_rate_with_hl_toxin(db)
 
 
 if __name__ == "__main__":

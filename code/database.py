@@ -34,6 +34,30 @@ class DatabaseController:
 		""" % (toxin_type, toxin_type, "'"+cancer_type+"'", toxin_type)
 		return self.__runQuery(sql, [])
 
+	def select_cancer_rate_with_hl_toxin(self, cancer_type, toxin_type):
+		sql = """
+		SELECT cancers.cancer, ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, hl_toxin.toxin, hl_toxin.county
+		FROM cancers, (
+			(	
+				SELECT county, %(toxin_type)s as toxin
+				FROM toxins
+				WHERE %(toxin_type)s != 0
+				ORDER BY %(toxin_type)s ASC
+				LIMIT 1
+			) UNION (
+				SELECT county, %(toxin_type)s as toxin
+				FROM toxins
+				WHERE %(toxin_type)s != 0
+				ORDER BY %(toxin_type)s DESC
+				LIMIT 1
+			)
+		) as hl_toxin
+		WHERE cancers.county = hl_toxin.county
+		AND cancers.cancer = %(cancer_type)s
+		ORDER BY hl_toxin.toxin ASC;
+		""" % ({"toxin_type": toxin_type, "cancer_type": "'"+cancer_type+"'"})
+		return self.__runQuery(sql, [])
+
 	def high_low_comparison(self,cancer_type):
 		query = """SELECT toxins.county,
 					min_cancer.cases, max_cancer.cases,

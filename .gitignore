@@ -4,4 +4,4 @@ code/datasets
 code/__pycache__
 code/test.sql
 code/test.py
-code/plots
+code/plots/scatterplot.png

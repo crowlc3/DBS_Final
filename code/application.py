@@ -61,6 +61,12 @@ def high_low_comparison(db,type):
 					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
 
+def cancer_cases_threshold(db):
+	cases = input("How many cases would you like to set as the threshold? - ")
+	printTextTable(["l","l","l","l","l"],
+					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
+					db.cancer_cases_threshold(cases))
+
 def compare_cancer_rate_with_hl_toxin(db):
 	cancer_type = pick_cancer()
 	toxin_type = pick_toxin()
@@ -126,7 +132,8 @@ def main():
 	arr = ["1: find specific cancer",
 			"2: highlow",
 			"3: Correlation between toxin level and cancer rate over all counties.",
-			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin."]
+			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
+			"5: threshold cancer cases"]
 
 
 	query = 's'
@@ -162,6 +169,8 @@ def main():
 			toxin_cancer_correlation(db)
 		elif query_ == 4:
 			compare_cancer_rate_with_hl_toxin(db)
+		elif query_ == 5:
+			cancer_cases_threshold(db)
 
 
 if __name__ == "__main__":

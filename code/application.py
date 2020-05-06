@@ -162,7 +162,8 @@ def main():
 			"2: Find toxin cancer correlation",
 			"3: Compare information for highest amount of cases and lowest amount of cases",
 			"4: Find county specific data with cancer",
-			"5: Select all data for a specific toxin"]
+			"5: Select all data for a specific toxin",
+			"6: Compare cancer rates in counties with the highest and lowest levels of a given toxin."]
 
 
 	query = 's'
@@ -176,7 +177,7 @@ def main():
 			###Print options
 
 
-		query = input("Enter the number of the query you would like to run: ")
+		query = input("Enter the number of the data you want to query: ")
 
 		if(query == 'q'):
 			print("Bye Bye\n")
@@ -187,6 +188,7 @@ def main():
 
 		if(query_==1):
 			#cancer info only
+			print()
 			for item in cancer:
 				print(item)
 			queryc = input("Enter the number of the query you would like to run: ")
@@ -207,6 +209,7 @@ def main():
 
 		if(query_==2):
 			#toxin info only
+			print()
 			for item in toxin:
 				print(item)
 			queryt = input("Enter the number of the query you would like to run: ")
@@ -227,6 +230,7 @@ def main():
 
 		if(query_==3):
 			#both
+			print()
 			for item in both:
 				print(item)
 			queryb = input("Enter the number of the query you would like to run: ")
@@ -248,6 +252,8 @@ def main():
 				find_county_toxin_data_with_cancer(db)
 			if(query_b==5):
 				s_toxins_all(db)
+			if(query_b == 6):
+				compare_cancer_rate_with_hl_toxin(db)
 
 
 if __name__ == "__main__":

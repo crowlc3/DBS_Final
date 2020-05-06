@@ -1,33 +1,3 @@
-#-------------Heres some ideas for queries-------------------#
-
-# - At least two queries that select at least some data from both of your datasets
-
-#*****Toxins*****
-# Select the toxins levels per country (ME!)
-# Select the amount of a specific toxin in all counties (ME!)
-
-#*****Cancers*****
-# Select the data from each type of cancer (in progress)
-
-
-# - At least two queries that showcase syntax beyond the basic `SELECT-FROM-WHERE` clauses (e.g., Grouping, Subqueries, etc.)
-
-#*****Toxins*****
-# Join Cancer on county
-
-#*****Cancers*****
-# Select the data with cases over a certain threshold
-
-
-# - At least two queries that accept input entered by the user (as opposed to just allowing selection from a list of options)
-
-#*****Toxins*****
-# Select the amount of toxins for a specific county
-
-#*****Cancers*****
-# Select the data for a specific county
-# select data for a specific type
-
 import os
 import numpy
 import matplotlib
@@ -48,12 +18,13 @@ def printTextTable(alignment, header, data):
 	print()
 	print(tt.draw())
 
-def find_specific_cancer(db,type):
+def find_specific_cancer(db):
+	type = pick_cancer()
 	printTextTable(["l","l","l","l","l"],
 					["County", "Cancer", "Cases", "Population", "Age Adjusted Rate"],
 					db.find_specific_cancer(type))
 
-def toxin_cancer_correlation(db,):
+def toxin_cancer_correlation(db):
 	cancer_type = pick_cancer()
 	toxin_type = pick_toxin()
 	data = db.select_toxin_cancer_correlation(cancer_type, toxin_type)
@@ -92,7 +63,8 @@ def compare_cancer_rate_with_hl_toxin(db):
 					["Cancer Type", "Cancer Rate %", toxin_type + " Level", "County"],
 					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
-def high_low_comparison(db,type):
+def high_low_comparison(db):
+	type = pick_cancer()
 	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l"],
 					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
@@ -139,7 +111,6 @@ def toc_on_county(db):
                     ["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
                     db.toc_on_county())
 
-
 def pick_cancer():
 	print()
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
@@ -177,20 +148,21 @@ def main():
 	print()
 	print("Enter q to quit\n")
 
+	main_choices = ["1: Cancer Information Only", "2: Toxin Information Only", "3: Both"]
 
-	#array of options for queries
-	arr = ["1: find specific cancer",
-			"2: highlow",
-			"3: Correlation between toxin level and cancer rate over all counties.",
-			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
-			"5: threshold cancer cases",
-			"6: amount for a county",
-			"7: Total number of cancer cases in a given county.",
-			"8: toxin threshold",
-			"9: s_toxins_all",
-			"10: toc",
-			"11: county",
-			"12: all counties"]
+	cancer = ["1: Find information on a specific type of cancer",
+			"2: Find amount of cases over a certain threshold",
+			"3: Find totaled amount of cases for a county"]
+
+	toxin = ["1: Find toxin information for a certain county",
+			"2: Find toxin information for all counties",
+			"3: Find amount of toxins over a certain threshold"]
+
+	both = ["1: View all information",
+			"2: Find toxin cancer correlation",
+			"3: Compare information for highest amount of cases and lowest amount of cases",
+			"4: Find county specific data",
+			"5: Select all data for a specific toxin"]
 
 
 	query = 's'
@@ -199,9 +171,10 @@ def main():
 	while(query != 'q'):
 		print("\nPlease pick from one of these options to query our database:\n")
 
-		for item in arr:
+		for item in main_choices:
 			print(item)
 			###Print options
+
 
 		query = input("Enter the number of the query you would like to run: ")
 
@@ -212,36 +185,73 @@ def main():
 
 		query_ = int(query)
 
+		if(query_==1):
+			#cancer info only
+			for item in cancer:
+				print(item)
+			query = input("Enter the number of the query you would like to run: ")
 
-		print("You selected",arr[query_-1])
+			if(query == 'q'):
+				print("Bye Bye\n")
+				break
+				###End program
+
+			query_ = int(query)
+
+
+		if(query_==2):
+			#toxin info only
+			for item in toxin:
+				print(item)
+			query = input("Enter the number of the query you would like to run: ")
+
+			if(query == 'q'):
+				print("Bye Bye\n")
+				break
+				###End program
+
+			query_ = int(query)
+
+
+		if(query_==3):
+			#both
+			for item in both:
+				print(item)
+			query = input("Enter the number of the query you would like to run: ")
+
+			if(query == 'q'):
+				print("Bye Bye\n")
+				break
+				###End program
+
+			query_ = int(query)
 
 		#run function per user input
-		if query_ == 1:
-			type = pick_cancer()
-			find_specific_cancer(db,type)
-		elif query_ == 2:
-			type = pick_cancer()
-			high_low_comparison(db,type)
-		elif query_ == 3:
-			toxin_cancer_correlation(db)
-		elif query_ == 4:
-			compare_cancer_rate_with_hl_toxin(db)
-		elif query_ == 5:
-			cancer_cases_threshold(db)
-		elif query_ ==6:
-			find_county_toxin_data_with_cancer(db)
-		elif query_ == 7:
-			county_cases_totaled(db)
-		elif query_ == 8:
-			toxins_threshold(db)
-		elif query_ == 9:
-			s_toxins_all(db)
-		elif query_ == 10:
-			toc_on_county(db)
-		elif query_ ==11:
-			find_county_toxin_data(db)
-		elif query_ == 12:
-			toxins_in_county(db)
+		# if query_ == 1:
+		# 	find_specific_cancer(db)
+		# elif query_ == 2:
+		# 	type = pick_cancer()
+		# 	high_low_comparison(db)
+		# elif query_ == 3:
+		# 	toxin_cancer_correlation(db)
+		# elif query_ == 4:
+		# 	compare_cancer_rate_with_hl_toxin(db)
+		# elif query_ == 5:
+		# 	cancer_cases_threshold(db)
+		# elif query_ ==6:
+		# 	find_county_toxin_data_with_cancer(db)
+		# elif query_ == 7:
+		# 	county_cases_totaled(db)
+		# elif query_ == 8:
+		# 	toxins_threshold(db)
+		# elif query_ == 9:
+		# 	s_toxins_all(db)
+		# elif query_ == 10:
+		# 	toc_on_county(db)
+		# elif query_ ==11:
+		# 	find_county_toxin_data(db)
+		# elif query_ == 12:
+		# 	toxins_in_county(db)
 
 
 if __name__ == "__main__":

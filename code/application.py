@@ -134,7 +134,7 @@ def pick_toxin():
 	toxins_ = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
 	for i in range(len(toxins)):
 		print(i+1,"-",toxins[i])
-	numby = input("Enter a toxin type: ")
+	numby = input("Enter an emission type: ")
 	num = int(numby)
 	return toxins_[num-1]
 
@@ -148,22 +148,22 @@ def main():
 	print()
 	print("Enter q to quit\n")
 
-	main_choices = ["1: Cancer Information Only", "2: Toxin Information Only", "3: Both"]
+	main_choices = ["1: Cancer Information Only", "2: Emission Information Only", "3: Both"]
 
 	cancer = ["1: Find information on a specific type of cancer",
 			"2: Find amount of cases over a certain threshold",
 			"3: Find totaled amount of cases for a county"]
 
-	toxin = ["1: Find toxin information for a certain county",
-			"2: Find toxin information for all counties",
-			"3: Find amount of toxins over a certain threshold",
-			"4: Find all toxin information for a specific toxin"]
+	emission = ["1: Find emission information for a certain county",
+			"2: Find emission information for all counties",
+			"3: Find amount of emissions over a certain threshold",
+			"4: Find all emission information for a specific emission"]
 
 	both = ["1: View all information",
-			"2: Find toxin cancer correlation",
+			"2: Find emission cancer correlation",
 			"3: Compare information for highest amount of cases and lowest amount of cases",
 			"4: Find county specific data with cancer",
-			"5: Compare cancer rates in counties with the highest and lowest levels of a given toxin."]
+			"5: Compare cancer rates in counties with the highest and lowest levels of a given emission."]
 
 
 	query = 's'

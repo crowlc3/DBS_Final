@@ -97,6 +97,11 @@ def high_low_comparison(db,type):
 					["County", "Min Cases", "Max Cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
 
+def toxins_in_county(db):
+	printTextTable(["l","l","l","l","l","l","l","l","l","l"],
+					["County", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
+					db.toxins_in_county())
+
 def s_toxins_all(db):
 	toxin = pick_toxin()
 	printTextTable(["l","l"],
@@ -184,7 +189,8 @@ def main():
 			"8: toxin threshold",
 			"9: s_toxins_all",
 			"10: toc",
-			"11: county"]
+			"11: county",
+			"12: all counties"]
 
 
 	query = 's'

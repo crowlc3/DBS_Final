@@ -69,7 +69,7 @@ def compare_cancer_rate_with_hl_toxin(db):
 	cancer_type = pick_cancer()
 	toxin_type = pick_toxin()
 	printTextTable(["l","c","c","l"],
-					["Cancer Type", "Cancer Rate", toxin_type + " Level", "County"],
+					["Cancer Type", "Cancer Rate %", toxin_type + " Level", "County"],
 					db.select_cancer_rate_with_hl_toxin(cancer_type, toxin_type))
 
 def toxin_cancer_correlation(db,):
@@ -97,6 +97,12 @@ def toxin_cancer_correlation(db,):
 	plt.ylabel(toxin_type + " Level (Tons)")
 	plt.title("Correlation = " + str(correlation))
 	plt.savefig("plots/scatterplot.png")
+
+def county_cases_totaled(db):
+	county_name = input("Enter county name: ")
+	printTextTable(["l","c","c","c"],
+					["County", "Total Cases", "Population", "Cancer Rate %"],
+					db.select_county_cases_totaled(county_name))
 
 def find_county_toxin_data(db):
 	cancer_type = pick_cancer()
@@ -140,7 +146,8 @@ def main():
 			"3: Correlation between toxin level and cancer rate over all counties.",
 			"4: Compare cancer rates in counties with the highest and lowest levels of a given toxin.",
 			"5: threshold cancer cases",
-			"6: amount for a county"]
+			"6: amount for a county",
+			"7: Total number of cancer cases in a given county."]
 
 
 	query = 's'
@@ -180,6 +187,8 @@ def main():
 			cancer_cases_threshold(db)
 		elif query_ ==6:
 			find_county_toxin_data(db)
+		elif query_ == 7:
+			county_cases_totaled(db)
 
 
 if __name__ == "__main__":

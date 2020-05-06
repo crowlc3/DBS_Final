@@ -99,7 +99,7 @@ class DatabaseController:
 		return self.__runQuery(query,[cancer_type,cancer_type])
 
 	def toxins_in_county(self):
-		query = "SELECT * from toxins;"
+		query = "SELECT * FROM toxins;"
 		return self.__runQuery(query, [])
 
 	def s_toxins_all(self, toxin):
@@ -107,16 +107,42 @@ class DatabaseController:
 		return self.__runQuery(query, [])
 
 	def cancer_cases_threshold(self, cases):
-			query = "SELECT * FROM cancers WHERE cases > %s ORDER BY cancers.county ASC"
+			query = """
+			SELECT * 
+			FROM cancers 
+			WHERE cases > %s 
+			ORDER BY cancers.county ASC;"""
 			return self.__runQuery(query,[cases])
 
 	def find_county_toxin_data_with_cancer(self,county,cancer_type):
-		query = """SELECT cancers.county,cancers.cancer,cancers.cases,cancers.population,cancers.age_adjusted_rate,toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2
-					from cancers join toxins on cancers.county = toxins.county where cancers.county = %s AND cancers.cancer = %s;"""
+		query = """
+		SELECT 
+			cancers.county,
+			cancers.cancer,
+			cancers.cases,
+			cancers.population,
+			cancers.age_adjusted_rate,
+			toxins.voc, 
+			toxins.nox, 
+			toxins.co, 
+			toxins.co2, 
+			toxins.particulate, 
+			toxins.pm10, 
+			toxins.pm25, 
+			toxins.haps, 
+			toxins.so2
+		FROM cancers 
+		JOIN toxins 
+		ON cancers.county = toxins.county 
+		WHERE cancers.county = %s 
+		AND cancers.cancer = %s;"""
 		return self.__runQuery(query,[county,cancer_type])
 
 	def find_county_toxin_data(self,county):
-		query = """SELECT * from toxins where toxins.county = %s;"""
+		query = """
+		SELECT * 
+		FROM toxins 
+		WHERE toxins.county = %s;"""
 		return self.__runQuery(query,[county])
 
 	def toxins_threshold(self, toxin,threshold):
@@ -124,9 +150,27 @@ class DatabaseController:
 		return self.__runQuery(query,[threshold])
 
 	def toc_on_county(self):
-		query = "SELECT cancers.county,cancers.cancer,cancers.cases,cancers.population,cancers.age_adjusted_rate,toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2 FROM toxins JOIN cancers ON toxins.county = cancers.county ORDER BY cancers.county;"
+		query = """
+		SELECT 
+			cancers.county,
+			cancers.cancer,
+			cancers.cases,
+			cancers.population,
+			cancers.age_adjusted_rate,
+			toxins.voc, 
+			toxins.nox, 
+			toxins.co, 
+			toxins.co2, 
+			toxins.particulate, 
+			toxins.pm10, 
+			toxins.pm25, 
+			toxins.haps, 
+			toxins.so2 
+		FROM toxins 
+		JOIN cancers 
+		ON toxins.county = cancers.county 
+		ORDER BY cancers.county;"""
 		return self.__runQuery(query,[])
-
 
 
 def main():

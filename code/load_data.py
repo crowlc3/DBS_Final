@@ -4,7 +4,6 @@ import os
 
 db_port = os.getenv('db_port') or '5432';
 connection_string = "host='localhost' dbname='dbms_final_project' user='dbms_project_user' password='dbms_password' port=" + db_port;
-
 conn = psycopg2.connect(connection_string)
 
 # Build the schema based on the schema file
@@ -14,7 +13,8 @@ def buildSchema():
 		cursor.execute(setup_queries)
 		conn.commit()
 
-# Insert each row into toxin table
+# Insert each row into toxins_raw table
+# This methods inserts ALL values from csv to table
 def insertToxinData(row):
 	with conn.cursor() as cursor:
 		sql = """
@@ -38,6 +38,9 @@ def insertToxinData(row):
 		))
 
 # Loop over all of the rows in the toxin datasheet
+# Load the data into the toxins_raw table
+# The toxin_raw table will then be used to build an more refinied
+# dataset in the toxins table, see the readme for more info
 def loadToxinData():
 	with open('datasets/Title_V_Emissions_Inventory__Beginning_2010.csv', 'r') as toxin_csv:
 		reader = csv.reader(toxin_csv, delimiter=',')
@@ -47,7 +50,7 @@ def loadToxinData():
 		for row in reader:
 			insertToxinData(row)
 
-		# Average the raw data into toxins_avg
+		# Average the raw data into toxins
 		sql = """
 		SELECT 
 			county, 
@@ -86,7 +89,8 @@ def loadToxinData():
 
 			conn.commit();
 
-
+# Insert a single row of cancer data
+# Meant to abstract the insert and data purification process
 def insertCancerData(row):
 	with conn.cursor() as cursor:
 		sql = """
@@ -109,7 +113,7 @@ def insertCancerData(row):
 			row[5].replace("'", ""),
 		))
 
-
+# Loop through the 3 cancer files and load them into the same database table
 def loadCancerData():
 	files = ["leukemias.csv","lung.csv","melanomas.csv"]
 	for file in files:
@@ -124,7 +128,6 @@ def loadCancerData():
 			conn.commit();
 
 
-
 def main():
 	# TODO invoke your code to load the data into the database
 	print("Building Database Schema...")
@@ -133,7 +136,7 @@ def main():
 	loadToxinData()
 	print("Loading cancer data...")
 	loadCancerData()
-
+	print("Database Successfully Created and Data Loaded.")
 
 if __name__ == "__main__":
 	main()

@@ -91,12 +91,12 @@ def toxin_cancer_correlation(db,):
 	print("\nThe correlation between " + cancer_type + " and " + toxin_type + " is: " + str(correlation))
 
 	# Output scatterplot
-	print("\nA scatterplot of this data has been saved under plots/scatterplot.png")
 	plt.scatter(cancer_rate, toxin_level)
 	plt.xlabel(cancer_type + " Cancer Rate")
 	plt.ylabel(toxin_type + " Level (Tons)")
 	plt.title("Correlation = " + str(correlation))
 	plt.savefig("plots/scatterplot.png")
+	print("\nA scatterplot of this data has been saved under plots/scatterplot.png")
 
 def county_cases_totaled(db):
 	county_name = input("Enter county name: ")

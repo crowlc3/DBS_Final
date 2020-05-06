@@ -89,6 +89,11 @@ def high_low_comparison(db,type):
 					["county", "cancer", "cancer" ,"cases", "cases", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
 					db.high_low_comparison(type))
 
+def compare_cancer_rate_with_hl_toxin(db):
+	printTextTable(["l","c","c","l"],
+					["Cancer Type", "Cancer Rate", "Toxin Level", "County"],
+					None)
+
 def toxin_cancer_correlation(db,):
 	cancer_type = pick_cancer()
 	toxin_type = pick_toxin()

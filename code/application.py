@@ -121,6 +121,7 @@ def toxins_threshold(db):
 
 
 def pick_cancer():
+	print()
 	cancers = ["Leukemias", "Lung and Bronchus","Melanomas of the Skin"]
 	for i in range(len(cancers)):
 		print(i+1,"-",cancers[i])
@@ -129,12 +130,22 @@ def pick_cancer():
 	return cancers[num-1]
 
 def pick_toxin():
-	toxins = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
+	print()
+	toxins = ["voc: Volatile Organic Compounds",
+			"nox: Nitrogen Dioxide and Nitric Oxide",
+			"co: Carbon Monoxide",
+			"co2: Carbon Dioxide",
+			"particulate: Contaminants Suspended in Air",
+			"pm10: Particulate Matter (10 micrometers or less in diameter)",
+			"pm25: Particulate Matter (2.5 micrometers or less in diameter)",
+			"haps: Hazardous Air Pollutants",
+			"so2: Sulfur Dioxide"]
+	toxins_ = ["voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"]
 	for i in range(len(toxins)):
 		print(i+1,"-",toxins[i])
 	numby = input("Enter a toxin type: ")
 	num = int(numby)
-	return toxins[num-1]
+	return toxins_[num-1]
 
 def main():
 	# Initialize Imports

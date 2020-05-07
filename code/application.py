@@ -18,6 +18,7 @@ def printTextTable(alignment, header, data):
 	print()
 	print(tt.draw())
 
+# Get data about a specific cancer
 def find_specific_cancer(db):
 	type = pick_cancer()
 	printTextTable(["l","l","l","l","l"],

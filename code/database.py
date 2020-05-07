@@ -24,6 +24,7 @@ class DatabaseController:
 		#get information for a specific type of cancer
 
 	def select_toxin_cancer_correlation(self, cancer_type, toxin_type):
+		# view the correlation between a given cancer and a type of emmision
 		sql = """
 		SELECT ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, toxins.%s
 		FROM cancers,toxins
@@ -35,6 +36,7 @@ class DatabaseController:
 		return self.__runQuery(sql, [])
 
 	def select_county_cases_totaled(self, county_name):
+		# Get the total sun of all cancer cases in a given county
 		sql = """
 		SELECT 
 			cancers.county, 
@@ -48,6 +50,7 @@ class DatabaseController:
 		return self.__runQuery(sql, [county_name])
 
 	def select_cancer_rate_with_hl_toxin(self, cancer_type, toxin_type):
+		# view the cancer rate for the county with the highest and lowest level of a given toxin
 		sql = """
 		SELECT cancers.cancer, ((cancers.cases::DOUBLE PRECISION / cancers.population) * 100) as rate, hl_toxin.toxin, hl_toxin.county
 		FROM cancers, (

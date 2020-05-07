@@ -111,7 +111,7 @@ class DatabaseController:
 			SELECT * 
 			FROM cancers 
 			WHERE cases > %s 
-			ORDER BY cancers.county ASC;"""
+			ORDER BY cancers.county DESC;"""
 			return self.__runQuery(query,[cases])
 
 	def find_county_toxin_data_with_cancer(self,county,cancer_type):
@@ -146,7 +146,7 @@ class DatabaseController:
 		return self.__runQuery(query,[county])
 
 	def toxins_threshold(self, toxin,threshold):
-		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s ORDER BY "+toxin+";"
+		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s ORDER BY "+toxin+" DESC;"
 		return self.__runQuery(query,[threshold])
 
 	def toxins_and_cancers(self):

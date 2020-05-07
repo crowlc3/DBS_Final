@@ -1,3 +1,6 @@
+Video:
+	https://drive.google.com/file/d/1xSw1Yzt_2DFfp6OzxUpkYEcM3zQB6QDk/view?usp=sharing
+
 retrive_data.py Notes and Instructions:
 	
 	When retriving the data you want to verify that 4 files are downloaded under the following names:
@@ -10,7 +13,7 @@ retrive_data.py Notes and Instructions:
 
 load_data.py Notes and Instructions:
 	
-	load_data.py will directly attempt to access the files above by their names above. This is why it is important that the file names are exactly as listed above. 
+	load_data.py will directly attempt to access the files above by their names above. This is why it is important that the file names are EXACTLY as listed above. 
 
 	This process will load the first three cancer data files into one table and the emissions file into another. Please see additional notes on this below.
 

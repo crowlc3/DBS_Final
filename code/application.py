@@ -48,9 +48,9 @@ def toxin_cancer_correlation(db):
 	plt.xlabel(cancer_type + " Cancer Rate")
 	plt.ylabel(toxin_type + " Level (Tons)")
 	plt.title("Correlation = " + str(correlation))
-	plt.savefig("plots/scatterplot.png")
+	plt.savefig("scatterplot.png")
 	plt.clf()
-	print("\nA scatterplot of this data has been saved under plots/scatterplot.png")
+	print("\nA scatterplot of this data has been saved under scatterplot.png")
 
 def county_cases_totaled(db):
 	county_name = input("Enter county name: ")

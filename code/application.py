@@ -108,7 +108,7 @@ def toxins_threshold(db):
 					db.toxins_threshold(toxin,threshold))
 
 def toxins_and_cancers(db):
-    printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
+	printTextTable(["l","l","l","l","l","l","l","l","l","l","l","l","l","l"],
                     ["County", "Cancer", "Cases","Population", "Age Adjusted Rate", "voc", "nox", "co", "co2", "particulate", "pm10", "pm25", "haps", "so2"],
                     db.toxins_and_cancers())
 

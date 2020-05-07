@@ -21,6 +21,7 @@ class DatabaseController:
 	def find_specific_cancer(self,cancer_type):
 		query = "SELECT * FROM cancers WHERE CANCER LIKE %s;"
 		return self.__runQuery(query,[cancer_type])
+		#get information for a specific type of cancer
 
 	def select_toxin_cancer_correlation(self, cancer_type, toxin_type):
 		sql = """
@@ -71,6 +72,7 @@ class DatabaseController:
 		return self.__runQuery(sql, [])
 
 	def high_low_case_comparison(self,cancer_type):
+		#get the highest amount of cases for a type of cancer and the lowest amount with toxin info
 		query = """SELECT toxins.county,
 					min_cancer.cases, max_cancer.cases,
 					toxins.voc, toxins.nox, toxins.co, toxins.co2, toxins.particulate, toxins.pm10, toxins.pm25, toxins.haps, toxins.so2
@@ -97,16 +99,18 @@ class DatabaseController:
 					ON toxins.county = max_cancer.countys
 					WHERE (min_cancer.cases IS NOT NULL OR max_cancer.cases IS NOT NULL);"""
 		return self.__runQuery(query,[cancer_type,cancer_type])
-
+	
+	#gets all the data from the toxins table to show all toxins per county
 	def toxins_in_all_counties(self):
 		query = "SELECT * FROM toxins;"
 		return self.__runQuery(query, [])
-
+	
+	#given a specific toxin, grabs its associated across all counties from the toxin table
 	def select_specific_toxin(self, toxin):
 		query = "SELECT county, "+toxin+" FROM toxins;"
 		return self.__runQuery(query, [])
 
-	def cancer_cases_threshold(self, cases):
+	def cancer_cases_threshold(self, cases):#get all cancer data over a certain amount of cases
 			query = """
 			SELECT * 
 			FROM cancers 
@@ -115,6 +119,7 @@ class DatabaseController:
 			return self.__runQuery(query,[cases])
 
 	def find_county_toxin_data_with_cancer(self,county,cancer_type):
+		#get county data with given cancer type, mainly gettin toxin data
 		query = """
 		SELECT 
 			cancers.county,
@@ -139,6 +144,7 @@ class DatabaseController:
 		return self.__runQuery(query,[county,cancer_type])
 
 	def find_county_toxin_data(self,county):
+		#get county toxin data with given county
 		query = """
 		SELECT * 
 		FROM toxins 
@@ -146,10 +152,12 @@ class DatabaseController:
 		return self.__runQuery(query,[county])
 
 	def toxins_threshold(self, toxin,threshold):
+		#get amount of toxins that are over the threshold given
 		query = "SELECT county, "+toxin+" FROM toxins WHERE "+toxin+">%s ORDER BY "+toxin+" DESC;"
 		return self.__runQuery(query,[threshold])
 
 	def toxins_and_cancers(self):
+		#all info
 		query = """
 		SELECT 
 			cancers.county,
